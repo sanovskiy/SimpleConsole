@@ -1112,12 +1112,15 @@ class SimpleConsole
 
     public $dumpsAdmitted = false;
 
+
     static function getDump($var)
     {
         self::getInstance()->dumpsAdmitted = true;
-        $trace = debug_backtrace();
+        /*
+        //$trace = debug_backtrace();
         //$index = count($trace)-2;
         $index = 1;
+        //$file = '';
         if (isset($trace [$index] ["file"])) {
             $file = str_replace("\\", "/", $trace [$index] ["file"]);
         } else {
@@ -1129,6 +1132,7 @@ class SimpleConsole
             $line = "??? (Maybe zend view.)";
         }
         //$this->putLog(__FUNCTION__ . " called from $file at line $line", self::HLOG_INFO);
+        */
         return self::getInstance()->performDump($var);
     }
 
