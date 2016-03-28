@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 /**
  * Copyright 2010-2016 Pavel Terentyev <pavel.terentyev@gmail.com>
@@ -17,8 +16,5 @@
  *
  */
 
-error_reporting(E_ALL);
-include __DIR__ . '/../lib/bootstrap.php';
-
-$CC = SimpleConsole::getInstance();
-
+require __DIR__.DIRECTORY_SEPARATOR.'SimpleConsole'.DIRECTORY_SEPARATOR.'Autoload.php';
+SimpleConsole_Autoload::register();

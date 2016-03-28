@@ -126,8 +126,6 @@ class SimpleConsole
 
     private $rawElapsedTime = 0;
 
-    private static $autoloadRegistered = false;
-
     /**
      * Parses $GLOBALS['argv'] for parameters and assigns them to an array.
      *
@@ -341,28 +339,10 @@ class SimpleConsole
      */
     public static function getInstance()
     {
-        if (!self::$autoloadRegistered) {
-            spl_autoload_register(['SimpleConsole', 'autoload']);
-        }
         if (self::$instance == null) {
             self::$instance = new self ();
         }
         return self::$instance;
-    }
-
-    /**
-     * @param $classname
-     * @return bool
-     */
-    public static function autoload($classname)
-    {
-        $classpath = __DIR__ . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $classname) . '.php';
-        if (!file_exists($classpath)) {
-            return false;
-        }
-        /** @noinspection PhpIncludeInspection */
-        require $classpath;
-        return true;
     }
 
     /**
