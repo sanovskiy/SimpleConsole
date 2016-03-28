@@ -13,7 +13,7 @@
     }
   ],
   "autoload": {
-    "files": ["src/bootstrap.php"]
+    "files": ["lib/bootstrap.php"]
   },
   "require": {
     "php": ">=5.4.0"
