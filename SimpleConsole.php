@@ -302,13 +302,6 @@ class SimpleConsole
             $this->dropText(
                 SimpleConsole_Colors::colorize('Peak memory usage: ', SimpleConsole_Colors::WHITE) . $mem
             );
-            $this->showDump(
-                [
-                    $this->scriptStartTime,
-                    $this->scriptEndTime,
-                    $this->scriptStartTime == $this->scriptEndTime
-                ]
-            );
             $timeString = ' none';
             if ($this->scriptStartTime < $this->scriptEndTime) {
                 $timeString = $this->getTimeString($this->scriptStartTime, $this->scriptEndTime, 'yfwdhms', true);
@@ -659,7 +652,7 @@ class SimpleConsole
     function dropLF($multiplier = 1)
     {
         if (!$this->keepSilence) {
-            $this->cEcho(str_repeat("\n", intval($multiplier)));
+            $this->cEcho(str_repeat(PHP_EOL, intval($multiplier)));
         }
     }
 
