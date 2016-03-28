@@ -650,6 +650,15 @@ class SimpleConsole
     }
 
     /**
+     * @param $text
+     * @param null $colorize
+     */
+    public function indentedEcho($text, $colorize = null)
+    {
+        $this->cEcho(str_repeat(self::INDENT_STR,$this->echoLevel).$text,$colorize);
+    }
+
+    /**
      * Returns colorised text.
      * $color - UNIX console color
      *
