@@ -117,12 +117,12 @@ class SimpleConsole
         return $this->scriptStartTime;
     }
 
-    private $conOPTAliases = array(
+    private $conOPTAliases = [
         'h' => 'help'
-    );
-    private $conOPTDefaults = array();
-    private $conOPTDescriptions = array();
-    private $conOPT = array();
+    ];
+    private $conOPTDefaults = [];
+    private $conOPTDescriptions = [];
+    private $conOPT = [];
 
     private $rawElapsedTime = 0;
 
@@ -139,15 +139,15 @@ class SimpleConsole
      *
      * @param array $noopt List of parameters without values
      */
-    public function parseOpts($noopt = array())
+    public function parseOpts($noopt = [])
     {
         //$args = getopt();
-        $noopt = array_merge(array('help'), $noopt);
+        $noopt = array_merge(['help'], $noopt);
         $params = $_SERVER['argv'];
         // could use getopt() here (since PHP 5.3.0), but it doesn't work relyingly
         reset($params);
         next($params);
-        $result = array();
+        $result = [];
         while (list(, $p) = each($params)) {
             if (mb_substr($p, 0, 1) == '-') {
                 $pname = substr($p, 1);
@@ -196,7 +196,7 @@ class SimpleConsole
             $param = '--' . $key;
             $this->cEcho(SimpleConsole_Colors::colorize($param, SimpleConsole_Colors::WHITE) . str_repeat(' ',
                     $paramColWidth - mb_strlen($param, 'utf-8')));
-            $aliases = array();
+            $aliases = [];
             foreach ($this->conOPTAliases as $alias => $aKey) {
                 if ($aKey == $key) {
                     $aliases[] = '-' . $alias;
@@ -209,7 +209,7 @@ class SimpleConsole
                 $value .= ' default: ' . $this->conOPTDefaults[$key];
             }
 
-            $string = str_replace(array("\r\n", "\n"), " ", $value);
+            $string = str_replace(["\r\n", "\n"], " ", $value);
             $wordsArray = explode(" ", $string);
             $curLine = '';
             foreach ($wordsArray as $num => $word) {
@@ -565,7 +565,7 @@ class SimpleConsole
      */
     function abort($reason = "no reason", $error_level = self::HLOG_NOLEVEL)
     {
-        if (in_array($error_level, array(self::HLOG_ERROR, self::HLOG_DEBUG))) {
+        if (in_array($error_level, [self::HLOG_ERROR, self::HLOG_DEBUG])) {
             $this->putLog("Script aborted. Reason: " . $reason, $error_level);
         }
         $this->shutUp();
@@ -655,7 +655,7 @@ class SimpleConsole
      */
     public function indentedEcho($text, $colorize = null)
     {
-        $this->cEcho(str_repeat(self::INDENT_STR,$this->echoLevel).$text,$colorize);
+        $this->cEcho(str_repeat(self::INDENT_STR, $this->echoLevel) . $text, $colorize);
     }
 
     /**
@@ -812,14 +812,14 @@ class SimpleConsole
      */
     function drawLogo($strings, $colorize = null)
     {
-        $output = array();
+        $output = [];
         $strings = (array)$strings;
         $max_len = 0;
         foreach ($strings as $string) {
             if (is_array($string)) {
                 $string = array_shift($string);
             }
-            $max_len = strlen($string) > $max_len ? strlen($string) : $max_len;
+            $max_len = strlen(SimpleConsole_Colors::stripColors($string)) > $max_len ? strlen(SimpleConsole_Colors::stripColors($string)) : $max_len;
         }
         $output[] = str_repeat("-", $max_len + 4);
         foreach ($strings as $string) {
@@ -874,22 +874,22 @@ class SimpleConsole
           } */
     }
 
-    private $tableColsLengths = array();
-    private $outputTable = array();
+    private $tableColsLengths = [];
+    private $outputTable = [];
 
     public function startTable()
     {
-        $this->outputTable = array();
+        $this->outputTable = [];
     }
 
     public function pushTableRow($row = null, $isHeader = false)
     {
-        $this->outputTable[] = array();
+        $this->outputTable[] = [];
         if (!is_null($row) && !empty($row)) {
             if (is_array($row)) {
                 foreach ($row as $text) {
                     if (!is_array($text)) {
-                        $text = array($text, null);
+                        $text = [$text, null];
                     }
                     $this->pushTableCell($text, $isHeader);
                 }
@@ -921,7 +921,7 @@ class SimpleConsole
         if (!isset($this->tableColsLengths[$curCell]) || $this->tableColsLengths[$curCell] < $maxLen) {
             $this->tableColsLengths[$curCell] = $maxLen;
         }
-        $_ = array();
+        $_ = [];
         $_['header'] = $isHeader;
         $_['text'] = trim($text);
         $_['color'] = $color;
@@ -960,18 +960,18 @@ class SimpleConsole
             $this->dropLF();
             $this->dropText(str_repeat('-', $tableLineLength));
         }
-        $this->tableColsLengths = $this->outputTable = array();
+        $this->tableColsLengths = $this->outputTable = [];
         $this->appendPidOnOutput = $prependPID;
         return $this;
     }
 
-    public $ignoredClasses = array(
+    public $ignoredClasses = [
         __CLASS__,
         "Zend_Db_Adapter_Pdo_Mysql",
         "Zend_Db_Adapter_Mysqli",
         "Zend_Db_Adapter_Mysql"
-    );
-    public $ignoredProperties = array();//"DBTable", "TFields", "Properties", "field2PropertyTransform", "property2FieldTransform", "field2ReturnTransform");
+    ];
+    public $ignoredProperties = [];//"DBTable", "TFields", "Properties", "field2PropertyTransform", "property2FieldTransform", "field2ReturnTransform");
 
     public function performDump(&$obj, $LeftSp = "")
     {
@@ -1173,7 +1173,7 @@ class SimpleConsole
 
     public function getMemoryUsage()
     {
-        $_ = array();
+        $_ = [];
         $_['peak'] = memory_get_peak_usage(true);
         $_['current'] = memory_get_usage(true);
         return $_;
