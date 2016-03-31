@@ -1,7 +1,7 @@
 {
   "name": "sanovskiy/simple-console",
   "description": "PHP CLI tools",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "keywords": [
     "php-cli console"
   ],
